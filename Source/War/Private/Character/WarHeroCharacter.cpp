@@ -11,6 +11,7 @@
 #include "Component/Input/WarInputComponent.h"
 #include "WarGameplayTags.h"	
 #include "EnhancedInput/Public/InputActionValue.h"
+#include "AbilitySystem/WarAbilitySystemComponent.h"
 
 #include "WarDebugHelper.h"
 
@@ -38,6 +39,15 @@ AWarHeroCharacter::AWarHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);	
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+}
+
+void AWarHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	if (WarAbilitySystemComponent && WarAttributeSet)
+	{
+		Debug::Print(FString::Printf(TEXT("Ability sys6tem is vaild ")));
+	}
 }
 
 void AWarHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

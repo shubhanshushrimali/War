@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Character/WarBaseCharacter.h"
+
 #include "WarHeroCharacter.generated.h"
 
 
@@ -25,8 +26,19 @@ class WAR_API AWarHeroCharacter : public AWarBaseCharacter
 public:
 	AWarHeroCharacter();
 protected:
+
+
+
+	//~ Begin APawn Interface.
+	virtual void PossessedBy(AController* NewController) override;
+	//~ End APawn Interface
+
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
+
+
+
 
 private:
 #pragma region Components 

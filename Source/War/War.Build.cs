@@ -14,7 +14,8 @@ public class War : ModuleRules
 			"Engine", 
 			"InputCore", 
 			"EnhancedInput",
-            "GameplayTags"
+            "GameplayTags",
+            "GameplayTasks"
 
         });
 
