@@ -12,6 +12,7 @@
 #include "WarGameplayTags.h"	
 #include "EnhancedInput/Public/InputActionValue.h"
 #include "AbilitySystem/WarAbilitySystemComponent.h"
+#include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 
 #include "WarDebugHelper.h"
 
@@ -44,9 +45,13 @@ AWarHeroCharacter::AWarHeroCharacter()
 void AWarHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	if (WarAbilitySystemComponent && WarAttributeSet)
+
+	if (!CharacterStartUpData.IsNull())
 	{
-		Debug::Print(FString::Printf(TEXT("Ability sys6tem is vaild ")));
+		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(WarAbilitySystemComponent); 
+	    }
 	}
 }
 

@@ -10,6 +10,7 @@
 
 class UWarAbilitySystemComponent;
 class UWarAttributeSet;
+class UDataAsset_StartUpDataBase; 
 
 UCLASS()
 class WAR_API AWarBaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -20,7 +21,7 @@ public:
 	// Sets default values for this character's properties
 	AWarBaseCharacter();
 	//~ Begin APawn Interface.
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ End APawn Interface
 protected:
 	//~ Begin APawn Interface.
@@ -33,6 +34,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UWarAttributeSet* WarAttributeSet;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
+	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData; 
 
 public:
 	FORCEINLINE UWarAbilitySystemComponent* GetWarAbilitySystemComponent() const { return WarAbilitySystemComponent; }

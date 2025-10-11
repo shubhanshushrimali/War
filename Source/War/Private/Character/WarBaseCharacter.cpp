@@ -33,6 +33,9 @@ void AWarBaseCharacter::PossessedBy(AController* NewController)
 	if (WarAbilitySystemComponent)
 	{
 		WarAbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+		ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("Forgot To Assign start up data to %sw"), *GetName());
+
 	}
 }
 

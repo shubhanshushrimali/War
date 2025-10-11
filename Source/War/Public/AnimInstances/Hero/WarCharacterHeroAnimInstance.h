@@ -21,7 +21,7 @@ class WAR_API UWarCharacterHeroAnimInstance : public UWarCharacterAnimInstance
 public: 
 	virtual void NativeInitializeAnimation() override; 
 
-	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds);
+	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
 
 
 protected:
