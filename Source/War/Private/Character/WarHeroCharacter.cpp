@@ -13,6 +13,8 @@
 #include "EnhancedInput/Public/InputActionValue.h"
 #include "AbilitySystem/WarAbilitySystemComponent.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
+#include "Component/Combat/HeroCombatComponent.h"
+#include "GameplayTagContainer.h"
 
 #include "WarDebugHelper.h"
 
@@ -40,6 +42,8 @@ AWarHeroCharacter::AWarHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);	
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
 
 void AWarHeroCharacter::PossessedBy(AController* NewController)
@@ -72,6 +76,8 @@ void AWarHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
    WarInputComponent->BindNativeInputAction(InputConfigDataAsset, WarGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 
    WarInputComponent->BindNativeInputAction(InputConfigDataAsset, WarGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+
+   WarInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
 
 void AWarHeroCharacter::BeginPlay()
@@ -115,4 +121,16 @@ void AWarHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
 		AddControllerPitchInput(LoookAxisVector.Y);
 	} 
 
+}
+
+void AWarHeroCharacter::Input_AbilityInputPressed(FGameplayTag InputTag)
+{
+	WarAbilitySystemComponent->OnAbilityInputPressed(InputTag);
+
+}
+
+void AWarHeroCharacter::Input_AbilityInputReleased(FGameplayTag InputTag)
+{
+
+	WarAbilitySystemComponent->OnAbilityInputReleased(InputTag);
 }

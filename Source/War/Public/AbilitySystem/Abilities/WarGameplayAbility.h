@@ -6,8 +6,8 @@
 #include "Abilities/GameplayAbility.h"
 #include "WarGameplayAbility.generated.h"
 
-
-
+class UWarAbilitySystemComponent; 
+class UPwanCombatComponent;
 UENUM(BlueprintType)
 enum class EWarAbilityActivationPolicy : uint8
 {
@@ -32,4 +32,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "WarAbility")
 	EWarAbilityActivationPolicy AbilityActivationPolicy = EWarAbilityActivationPolicy::OnTriggered; 
+
+	UFUNCTION(BlueprintPure, Category = "War|Ability")
+	UPwanCombatComponent* GetPawnCombatComponentFromActorInfo() const;
+
+	UFUNCTION(BlueprintPure, Category = "War|Ability")
+	UWarAbilitySystemComponent* GetWarAbilitySystemComponentFromActorInfo() const; 
 };

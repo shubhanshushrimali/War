@@ -25,6 +25,13 @@ public:
 		CallbackFunc Func
 	);
 	
+	template<class UserObject, typename CallbackFunc>
+	void BindAbilityInputAction(
+		const UDataAsset_InputConfig* InputConfig,
+		UserObject* Object,
+		CallbackFunc InputPressedFunc,
+		CallbackFunc InputReleasedFunc 
+	);
 };
 
 template<class UserObject, typename CallbackFunc>
@@ -37,4 +44,22 @@ inline void UWarInputComponent::BindNativeInputAction(const UDataAsset_InputConf
 	{
 		BindAction(FoundAction, TriggerEvent, Object, Func);
 	}
+}
+
+template<class UserObject, typename CallbackFunc>
+inline void UWarInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InputConfig, UserObject* Object, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
+{
+
+	checkf(InputConfig, TEXT("InputConfig is nullptr , can not proceed with binding"));
+
+	for (const FWarInputActionConfig& AbilityInputActionConfig : InputConfig->AbilityInputActions)
+	{
+		if (!AbilityInputActionConfig.IsValid()) { continue; }
+
+
+			BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Started, Object, InputPressedFunc, AbilityInputActionConfig.InputTag);
+			BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Completed, Object, InputReleasedFunc , AbilityInputActionConfig.InputTag);
+		
+	}
+
 }

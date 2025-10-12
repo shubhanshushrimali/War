@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Abilities/WarGameplayAbility.h"
 #include "AbilitySystem/WarAbilitySystemComponent.h"
+#include "Component/Combat/PwanCombatComponent.h"
 
 void UWarGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -28,5 +29,19 @@ void UWarGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, co
 			ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
 		}
 	}
+
+}
+
+UPwanCombatComponent* UWarGameplayAbility::GetPawnCombatComponentFromActorInfo() const
+{
+
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPwanCombatComponent>();
+
+
+}
+
+UWarAbilitySystemComponent* UWarGameplayAbility::GetWarAbilitySystemComponentFromActorInfo() const
+{
+	return Cast<UWarAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 
 }

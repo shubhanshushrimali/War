@@ -12,7 +12,7 @@ UCLASS()
 class WAR_API AWarWeaponBase : public AActor
 {
 	GENERATED_BODY()
-
+	
 public:
 
 	AWarWeaponBase(); 
