@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "WarTypes/WarStructTypes.h"
 #include "WarAbilitySystemComponent.generated.h"
 
 /**
@@ -18,4 +19,10 @@ class WAR_API UWarAbilitySystemComponent : public UAbilitySystemComponent
 public: 
 	void OnAbilityInputPressed(const FGameplayTag& InputTag);
 	void OnAbilityInputReleased(const FGameplayTag& InputTag);
+
+	UFUNCTION(BlueprintCallable, Category = "War|Ability", meta = (ApplyLevel = "1"))
+	void GrantHeroWeaponAbilities(const TArray<FWarHeroAbliltySet>& InDefaultWeaponAbilities,int32 ApplyLevel , TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandle);
+
+	UFUNCTION(BlueprintCallable, Category = "War|Ability")
+	void RemoveGrantHeroWeaponAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove);
 };

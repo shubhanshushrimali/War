@@ -9,9 +9,19 @@
 /**
  * 
  */
+
+class AWarHeroWeapon;
+
+
+
+
 UCLASS()
 class WAR_API UHeroCombatComponent : public UPwanCombatComponent
 {
 	GENERATED_BODY()
 	
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "War|Combat")
+	AWarHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
 };

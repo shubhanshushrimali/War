@@ -4,28 +4,34 @@
 #include "AnimInstances/Hero/WarCharacterHeroAnimInstance.h"
 #include  "Character/WarBaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
-
+#include "Character/WarHeroCharacter.h"
 
 
 
 void UWarCharacterHeroAnimInstance::NativeInitializeAnimation()
 {
-
-	OwningCharacter = Cast<AWarBaseCharacter>(TryGetPawnOwner());
+	Super::NativeInitializeAnimation();
 
 	if (OwningCharacter)
 	{
-		OwningCharacterMovement = OwningCharacter->GetCharacterMovement();
+		OwningHeroCharacter = Cast<AWarHeroCharacter>(OwningCharacter);
 	}
+	
 }
 
 void UWarCharacterHeroAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 {
-	if (!OwningCharacter || !OwningCharacterMovement)
-	{
-		return;
-	}
+	Super::NativeThreadSafeUpdateAnimation(DeltaSeconds);
 
-	GroundSpeed = OwningCharacter->GetVelocity().Size2D();	
-	bHasAcceleration = OwningCharacterMovement->GetCurrentAcceleration().SizeSquared2D() > 0.f;
+	if (bHasAcceleration)
+	{
+		IdleElpasedTime = 0.f;
+		bShouldEnterRelaxState = false;
+	}
+	else
+	{
+		IdleElpasedTime += DeltaSeconds;
+
+		bShouldEnterRelaxState = (IdleElpasedTime >= EnterRelaxtStateThreshold);
+	}
 }

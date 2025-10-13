@@ -31,6 +31,6 @@ public:
 	
 
 private :
-	TWeakObjectPtr<AWarHeroCharacter> CachedHeroCharacter;
-	TWeakObjectPtr<AWarCharacterController> CachedHeroController;
+	mutable TWeakObjectPtr<AWarHeroCharacter> CachedHeroCharacter;
+	mutable TWeakObjectPtr<AWarCharacterController> CachedHeroController;
 };

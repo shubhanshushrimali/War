@@ -17,6 +17,9 @@ namespace WarGameplayTags
 	/**Player Tags **/
 	WAR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Axe);
 
+	WAR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Axe);
+	WAR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Unequip_Axe);
+
 	WAR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Axe);
 
 	WAR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Unquip_Axe); 

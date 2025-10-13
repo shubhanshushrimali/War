@@ -10,7 +10,7 @@ AWarHeroCharacter* UWarHeroGameplayAbility::GetHeroCharacterFromActorInfo() cons
 {
 	if (!CachedHeroCharacter.IsValid())
 	{
-		CachedHeroCharacter == Cast<AWarHeroCharacter>(CurrentActorInfo->AvatarActor);
+		CachedHeroCharacter = Cast<AWarHeroCharacter>(CurrentActorInfo->AvatarActor);
 	}
 
 	return CachedHeroCharacter.IsValid() ? CachedHeroCharacter.Get() : nullptr;	
@@ -21,7 +21,8 @@ AWarCharacterController* UWarHeroGameplayAbility::GetHeroControllerFromActorInfo
 {
 	if (!CachedHeroController.IsValid())
 	{
-		Cast<AWarCharacterController>(CurrentActorInfo->PlayerController);
+		CachedHeroController = Cast<AWarCharacterController>(CurrentActorInfo->PlayerController);
+
 	}
 
 	return CachedHeroController.IsValid() ? CachedHeroController.Get() : nullptr;
@@ -29,5 +30,6 @@ AWarCharacterController* UWarHeroGameplayAbility::GetHeroControllerFromActorInfo
 
 UHeroCombatComponent* UWarHeroGameplayAbility::GetHeroCombatFromActorInfo() const
 {
-	return GetHeroCharacterFromActorInfo()->GetHeroCombatComponent();
+	const AWarHeroCharacter* HeroCharacter = GetHeroCharacterFromActorInfo();
+	return HeroCharacter ? HeroCharacter->GetHeroCombatComponent() : nullptr;
 }

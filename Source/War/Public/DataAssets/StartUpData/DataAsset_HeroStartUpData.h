@@ -10,22 +10,7 @@
 /**
  * 
  */
-
-USTRUCT(BlueprintType)
-struct FWarHeroAbliltySet
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-	FGameplayTag InputTag;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UWarGameplayAbility> AbilityToGrant;
-
-	bool IsValid() const; 
-	
-
-};
+struct FWarHeroAbliltySet;
 
 UCLASS()
 class WAR_API UDataAsset_HeroStartUpData : public UDataAsset_StartUpDataBase

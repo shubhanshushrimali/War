@@ -9,9 +9,17 @@
 /**
  * 
  */
+
+class UWarCharacterHeroAnimInstance; 
+
+
 UCLASS()
 class WAR_API UWarHeroLinkedLayer : public UWarBaseAnimInstance
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintPure, meta = (BlueprintThreadSafe))
+	UWarCharacterHeroAnimInstance* GetHeroAnimInstance() const;
 	
 };

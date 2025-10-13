@@ -8,8 +8,8 @@
 
 
 
-class AWarBaseCharacter;
-class UCharacterMovementComponent;
+class AWarHeroCharacter;
+
 /**
  * 
  */
@@ -25,15 +25,15 @@ public:
 
 
 protected:
-	UPROPERTY()
-	AWarBaseCharacter* OwningCharacter;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|Refrences")
+	AWarHeroCharacter* OwningHeroCharacter;
 
-	UPROPERTY()
-	UCharacterMovementComponent* OwningCharacterMovement;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
-	float GroundSpeed;
+	bool bShouldEnterRelaxState;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
-	bool bHasAcceleration;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
+	float EnterRelaxtStateThreshold = 5.f;
+
+	float IdleElpasedTime;
 };

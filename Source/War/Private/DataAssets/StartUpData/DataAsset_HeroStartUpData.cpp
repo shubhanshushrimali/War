@@ -4,6 +4,9 @@
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 #include "AbilitySystem/Abilities/WarHeroGameplayAbility.h"
 #include "AbilitySystem/WarAbilitySystemComponent.h"
+#include "WarTypes/WarStructTypes.h"
+
+
 
 bool FWarHeroAbliltySet::IsValid() const
 {
