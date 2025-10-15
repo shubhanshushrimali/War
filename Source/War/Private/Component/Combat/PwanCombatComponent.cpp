@@ -17,9 +17,6 @@ void UPwanCombatComponent::RegisterSpwanedWeapon(FGameplayTag InWeaponTagTopRegi
 		CurrentEquippedWeaponTag = InWeaponTagTopRegister;
 	}
 
-
-	Debug::Print(FString::Printf(TEXT("Registered Weapon: %s with tag: %s"), *InWeaponToRegister->GetName(), *InWeaponTagTopRegister.ToString()));
-
 }
 
 AWarWeaponBase* UPwanCombatComponent::GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const

@@ -8,7 +8,7 @@
 
 
 class UWarHeroLinkedLayer; 
-class UWarGameplayAbility;
+class UWarHeroGameplayAbility;
 class UInputMappingContext; 
 
 USTRUCT(BlueprintType)
@@ -20,7 +20,7 @@ struct FWarHeroAbliltySet
 	FGameplayTag InputTag;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UWarGameplayAbility> AbilityToGrant;
+	TSubclassOf<UWarHeroGameplayAbility> AbilityToGrant;
 
 	bool IsValid() const;
 
