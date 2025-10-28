@@ -6,6 +6,11 @@
 #include "Character/WarBaseCharacter.h"
 #include "WarEnemyCharacter.generated.h"
 
+
+
+class UEnemyCombatComponent; 
+
+
 /**
  * 
  */
@@ -17,5 +22,15 @@ class WAR_API AWarEnemyCharacter : public AWarBaseCharacter
 
 public : 
 	AWarEnemyCharacter();
+	FORCEINLINE UEnemyCombatComponent* GetEnemyCombactComponent() const { return EnemyCombatComponent; }
+protected:
+
+	virtual void PossessedBy(AController* NewController) override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UEnemyCombatComponent* EnemyCombatComponent;
+
+private:
 	
+	void InitEnemyStartUpData();	
 };

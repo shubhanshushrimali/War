@@ -6,6 +6,11 @@
 #include "AbilitySystem/Abilities/WarGameplayAbility.h"
 #include "WarEnemyGameplayAbility.generated.h"
 
+
+class AWarEnemyCharacter; 
+class UEnemyCombatComponent; 
+
+
 /**
  * 
  */
@@ -14,4 +19,15 @@ class WAR_API UWarEnemyGameplayAbility : public UWarGameplayAbility
 {
 	GENERATED_BODY()
 	
+
+public: 
+	UFUNCTION(BlueprintPure, Category = "War|Ability")
+	AWarEnemyCharacter* GetEnemyCharacterFromActorInfo() ;
+
+	UFUNCTION(BlueprintPure, Category = "War|Ability")
+	UEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
+
+private:
+	TWeakObjectPtr<AWarEnemyCharacter> ChachedWarEnemyCharcter; 
+
 };
