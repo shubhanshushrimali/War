@@ -26,6 +26,9 @@ class WAR_API AWarHeroCharacter : public AWarBaseCharacter
 
 public:
 	AWarHeroCharacter();
+
+	virtual UPwanCombatComponent* GetPawnCombactComponent() const override;
+
 protected:
 
 

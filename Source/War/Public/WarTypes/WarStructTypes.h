@@ -2,7 +2,7 @@
 
 #pragma once
 #include "GameplayTagContainer.h"
-
+#include "ScalableFloat.h"
 #include "WarStructTypes.generated.h"
 
 
@@ -41,4 +41,6 @@ struct FWarHeroWeaponData
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FWarHeroAbliltySet> DefaultWeaponAbilities;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FScalableFloat WeaponBaseDamage;
 }; 

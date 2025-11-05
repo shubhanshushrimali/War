@@ -4,6 +4,7 @@
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "AbilitySystem/WarAbilitySystemComponent.h"
 #include "AbilitySystem/Abilities/WarGameplayAbility.h"
+#include "GameplayEffect.h"
 
 void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarAbilitySystemComponent* InWarASCToGive, int32 ApplyLevel)
 {
@@ -12,6 +13,25 @@ void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarAbilitySystemC
 
 	GrantAbility(ActivateOnGivenAbility, InWarASCToGive, ApplyLevel); 
 	GrantAbility(ReactiveAbility, InWarASCToGive, ApplyLevel);
+
+    if (!StartUpGameplayEffect.IsEmpty())
+    {
+		for (const TSubclassOf <UGameplayEffect>& EffectClass : StartUpGameplayEffect)
+		{
+			if (!EffectClass)
+			{
+				continue;
+			}
+
+			UGameplayEffect* GameplayEffect = EffectClass->GetDefaultObject<UGameplayEffect>();
+
+            InWarASCToGive->ApplyGameplayEffectToSelf(
+                GameplayEffect,
+                ApplyLevel,
+                InWarASCToGive->MakeEffectContext()
+            );
+		}
+    }
 
 }
 

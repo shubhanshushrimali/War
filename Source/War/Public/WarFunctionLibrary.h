@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WarTypes/WarEnumTypes.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "WarFunctionLibrary.generated.h"
 
@@ -10,15 +11,9 @@
  * 
  */
 
-UENUM()
-enum class  EWarConfiemType : uint8
-{
-	YES,
-	No
-};
 
 
-
+class UPwanCombatComponent;
 class UWarAbilitySystemComponent; 
 struct FGameplayTag;
 
@@ -41,4 +36,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "War|FunctionLibrary", meta = (DisplayName = "Does Actor Have TAG", ExpandEnumAsExecs = "OutConfirmType"))
 	static void DoesActorHaveTag(AActor* Actor, FGameplayTag TagToCheck , EWarConfiemType& OutConfirmType);
 
+	static UPwanCombatComponent* NativeGetPawnCombatComponentFromActor(AActor* Actor);
+
+	UFUNCTION(BlueprintCallable, Category = "War|FunctionLibrary", meta = (DisplayName = "Get Pawn Combact Component ", ExpandEnumAsExecs = "OutValidType"))
+	static UPwanCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* Actor , EWarValidType& OutValidType);
 };

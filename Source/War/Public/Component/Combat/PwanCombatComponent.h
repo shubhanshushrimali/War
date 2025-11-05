@@ -8,6 +8,16 @@
 #include "PwanCombatComponent.generated.h"
 
 class AWarWeaponBase;
+
+UENUM(BlueprintType)
+enum class EToggleDamageType : uint8
+{
+   CurrentEquippedWeapon,
+   LeftHandWeapon,
+   RightHandWeapon
+};
+
+
 /**
  * 
  */
@@ -30,6 +40,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "War|Combat")
 	AWarWeaponBase* GetCharacterCurrentEquippedWeapon() const; 
 	
+	UFUNCTION(BlueprintCallable, Category = "War|Combat")
+	void ToggleWeaponCollision(bool bShouldEnable , EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
+
+	virtual void OnHitTargetActor(AActor* HitActor);
+	virtual void OnPulledFromTargetActor(AActor* InteractedActor);
+
+protected:
+	TArray<AActor*> OverlappedActorsDuringAttack;
+
+
+
+
+
 
 private:
 	TMap<FGameplayTag, AWarWeaponBase*> CharcterCarriedWeaponsMap;

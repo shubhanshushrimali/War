@@ -3,6 +3,7 @@
 
 #include "Component/Combat/PwanCombatComponent.h"
 #include "Items/Weapons/WarWeaponBase.h"
+#include "Components/BoxComponent.h"
 #include "WarDebugHelper.h"
 
 void UPwanCombatComponent::RegisterSpwanedWeapon(FGameplayTag InWeaponTagTopRegister, AWarWeaponBase* InWeaponToRegister, bool bRegisterAsEquippedWeapon)
@@ -11,6 +12,10 @@ void UPwanCombatComponent::RegisterSpwanedWeapon(FGameplayTag InWeaponTagTopRegi
 	check(InWeaponToRegister);
 
 	CharcterCarriedWeaponsMap.Emplace(InWeaponTagTopRegister, InWeaponToRegister);
+
+
+	InWeaponToRegister->OnWeaponHitTarget.BindUObject(this, &ThisClass::OnHitTargetActor);
+	InWeaponToRegister->OnWeaponPulledFromTarget.BindUObject(this, &ThisClass::OnPulledFromTargetActor);
 
 	if (bRegisterAsEquippedWeapon)
 	{
@@ -49,4 +54,32 @@ AWarWeaponBase* UPwanCombatComponent::GetCharacterCurrentEquippedWeapon() const
 	{
 		return nullptr;
 	}
+}
+
+void UPwanCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType)
+{
+	if (ToggleDamageType == EToggleDamageType::CurrentEquippedWeapon)
+	{
+		AWarWeaponBase* WeapontoToggle = GetCharacterCurrentEquippedWeapon();
+		check(WeapontoToggle);
+		
+		if (bShouldEnable)
+		{
+			WeapontoToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+			
+		}
+		else
+		{
+			WeapontoToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			OverlappedActorsDuringAttack.Empty();
+		}
+	}
+}
+
+void UPwanCombatComponent::OnHitTargetActor(AActor* HitActor)
+{
+}
+
+void UPwanCombatComponent::OnPulledFromTargetActor(AActor* InteractedActor)
+{
 }

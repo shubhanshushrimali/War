@@ -5,6 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Component/Combat/EnemyCombatComponent.h"
 #include "Engine/AssetManager.h"
+#include "DataAssets/StartUpData/DataAssetEnemyStartUpData.h"
 
 AWarEnemyCharacter::AWarEnemyCharacter()
 {
@@ -24,6 +25,11 @@ AWarEnemyCharacter::AWarEnemyCharacter()
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
 }
 
+UPwanCombatComponent* AWarEnemyCharacter::GetPawnCombactComponent() const
+{
+	return EnemyCombatComponent;
+}
+
 void AWarEnemyCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
@@ -39,6 +45,19 @@ void AWarEnemyCharacter::InitEnemyStartUpData()
 		return;
 	}
 
-
+	UAssetManager::GetStreamableManager().RequestAsyncLoad(
+		CharacterStartUpData.ToSoftObjectPath(),
+		FStreamableDelegate::CreateLambda(
+			[this]()
+			{
+			  
+				UDataAsset_StartUpDataBase* LoadedStartUpData = CharacterStartUpData.Get();
+				if (LoadedStartUpData)
+				{
+					LoadedStartUpData->GiveToAbilitySystemComponent(WarAbilitySystemComponent);
+				}
+			}
+		)
+	);
 
 }

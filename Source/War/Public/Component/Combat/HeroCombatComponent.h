@@ -24,4 +24,13 @@ class WAR_API UHeroCombatComponent : public UPwanCombatComponent
 public:
 	UFUNCTION(BlueprintCallable, Category = "War|Combat")
 	AWarHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+
+	UFUNCTION(BlueprintCallable, Category = "War|Combat")
+	AWarHeroWeapon* GetHeroCurrentEquippedWeapon() const;
+
+	UFUNCTION(BlueprintCallable, Category = "War|Combat")
+	float GetHeroCurrentEquippedWeaponDamageAtLevel(float InLevel) const;
+
+	virtual void OnHitTargetActor(AActor* HitActor) override;
+	virtual void OnPulledFromTargetActor(AActor* InteractedActor) override;
 };

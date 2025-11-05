@@ -23,12 +23,16 @@ class WAR_API AWarEnemyCharacter : public AWarBaseCharacter
 public : 
 	AWarEnemyCharacter();
 	FORCEINLINE UEnemyCombatComponent* GetEnemyCombactComponent() const { return EnemyCombatComponent; }
+
+	virtual UPwanCombatComponent* GetPawnCombactComponent() const override;
 protected:
 
 	virtual void PossessedBy(AController* NewController) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UEnemyCombatComponent* EnemyCombatComponent;
+
+	
 
 private:
 	

@@ -8,6 +8,7 @@
 
 class UWarGameplayAbility; 
 class UWarAbilitySystemComponent;
+class UGameplayEffect;
 /**
  * 
  */
@@ -27,6 +28,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "StartUpData")
 	TArray < TSubclassOf <UWarGameplayAbility> > ReactiveAbility;
+
+	UPROPERTY(EditAnywhere, Category = "StartUpData")
+	TArray < TSubclassOf <UGameplayEffect> > StartUpGameplayEffect;
 
 	void GrantAbility(const TArray < TSubclassOf <UWarGameplayAbility> >& InAblityToGive , UWarAbilitySystemComponent* InWarASCToGive, int32 ApplyLevel = 1);
 

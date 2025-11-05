@@ -5,6 +5,7 @@
 #include "AbilitySystem/WarAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayTagContainer.h"
+#include "PawnCombactInterface.h"
 
 UWarAbilitySystemComponent* UWarFunctionLibrary::NativeGetWarAbilitySystemComponentFromActor(AActor* Actor)
 {
@@ -48,5 +49,23 @@ void UWarFunctionLibrary::DoesActorHaveTag(AActor* Actor, FGameplayTag TagToChec
 {
 
 	OutConfirmType = NativeDoesActorHaveTag(Actor, TagToCheck) ? EWarConfiemType::YES : EWarConfiemType::No;
+}
+
+UPwanCombatComponent* UWarFunctionLibrary::NativeGetPawnCombatComponentFromActor(AActor* Actor)
+{
+	check(Actor);	
+	if (IPawnCombactInterface* PawnCombactInterface = Cast<IPawnCombactInterface>(Actor))
+	{
+		return PawnCombactInterface->GetPawnCombactComponent();
+	}
+
+	return nullptr;
+}
+
+UPwanCombatComponent* UWarFunctionLibrary::BP_GetPawnCombatComponentFromActor(AActor* Actor, EWarValidType& OutValidType)
+{
+	UPwanCombatComponent* CombactComponent = NativeGetPawnCombatComponentFromActor(Actor);
+	OutValidType = CombactComponent ? EWarValidType::Valid : EWarValidType::Invalid;
+	return CombactComponent;
 }
 

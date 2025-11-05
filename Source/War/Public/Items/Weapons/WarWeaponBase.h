@@ -8,6 +8,8 @@
 
 class UBoxComponent;
 
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor* /*HitPawn*/);
+
 UCLASS()
 class WAR_API AWarWeaponBase : public AActor
 {
@@ -19,6 +21,9 @@ public:
 
 	FORCEINLINE UBoxComponent* GetWeaponCollisionBox() const { return WeaponCollisionBox; }
 
+	FOnTargetInteractedDelegate OnWeaponHitTarget; 
+	FOnTargetInteractedDelegate OnWeaponPulledFromTarget;
+
 protected:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Weapons")
@@ -26,4 +31,13 @@ protected:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Weapons")
 	UBoxComponent* WeaponCollisionBox;
+
+	UFUNCTION()
+	virtual void OnCollisonBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	virtual void OnCollisonBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
+	
+
 };
