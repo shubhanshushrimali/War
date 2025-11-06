@@ -9,7 +9,7 @@
 
 
 class UEnemyCombatComponent; 
-
+class UEnemyUIComponent; 
 
 /**
  * 
@@ -25,6 +25,11 @@ public :
 	FORCEINLINE UEnemyCombatComponent* GetEnemyCombactComponent() const { return EnemyCombatComponent; }
 
 	virtual UPwanCombatComponent* GetPawnCombactComponent() const override;
+
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
+
 protected:
 
 	virtual void PossessedBy(AController* NewController) override;
@@ -32,7 +37,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UEnemyCombatComponent* EnemyCombatComponent;
 
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UEnemyUIComponent* EnemyUIComponent;
 
 private:
 	

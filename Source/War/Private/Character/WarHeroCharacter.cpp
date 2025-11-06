@@ -15,6 +15,7 @@
 #include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 #include "Component/Combat/HeroCombatComponent.h"
 #include "GameplayTagContainer.h"
+#include "Component/UI/HeroUIComponent.h"
 
 #include "WarDebugHelper.h"
 
@@ -44,11 +45,23 @@ AWarHeroCharacter::AWarHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
+
+	HeroUIComponent = CreateDefaultSubobject<UHeroUIComponent>(TEXT("HeroUIComponent"));
 }
 
 UPwanCombatComponent* AWarHeroCharacter::GetPawnCombactComponent() const
 {
 	return HeroCombatComponent;
+}
+
+UPawnUIComponent* AWarHeroCharacter::GetPawnUIComponent() const
+{
+	return HeroUIComponent;
+}
+
+UHeroUIComponent* AWarHeroCharacter::GetHeroUIComponent() const
+{
+	return HeroUIComponent;
 }
 
 void AWarHeroCharacter::PossessedBy(AController* NewController)

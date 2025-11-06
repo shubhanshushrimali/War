@@ -6,6 +6,7 @@
 #include "Component/Combat/EnemyCombatComponent.h"
 #include "Engine/AssetManager.h"
 #include "DataAssets/StartUpData/DataAssetEnemyStartUpData.h"
+#include "Component/UI/EnemyUIComponent.h"
 
 AWarEnemyCharacter::AWarEnemyCharacter()
 {
@@ -23,11 +24,23 @@ AWarEnemyCharacter::AWarEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
+
+	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
 }
 
 UPwanCombatComponent* AWarEnemyCharacter::GetPawnCombactComponent() const
 {
 	return EnemyCombatComponent;
+}
+
+UPawnUIComponent* AWarEnemyCharacter::GetPawnUIComponent() const
+{
+	return EnemyUIComponent;
+}
+
+UEnemyUIComponent* AWarEnemyCharacter::GetEnemyUIComponent() const
+{
+	return EnemyUIComponent;
 }
 
 void AWarEnemyCharacter::PossessedBy(AController* NewController)
