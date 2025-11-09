@@ -7,6 +7,9 @@
 #include "Engine/AssetManager.h"
 #include "DataAssets/StartUpData/DataAssetEnemyStartUpData.h"
 #include "Component/UI/EnemyUIComponent.h"
+#include "Components/WidgetComponent.h"
+#include "Widget/WarWidgetBase.h"
+
 
 AWarEnemyCharacter::AWarEnemyCharacter()
 {
@@ -26,6 +29,10 @@ AWarEnemyCharacter::AWarEnemyCharacter()
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
 
 	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
+
+	EnemyHealthBarWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("EnemyHealthBarWidgetComponent"));
+
+	EnemyHealthBarWidgetComponent->SetupAttachment(GetMesh());
 }
 
 UPwanCombatComponent* AWarEnemyCharacter::GetPawnCombactComponent() const
@@ -41,6 +48,18 @@ UPawnUIComponent* AWarEnemyCharacter::GetPawnUIComponent() const
 UEnemyUIComponent* AWarEnemyCharacter::GetEnemyUIComponent() const
 {
 	return EnemyUIComponent;
+}
+
+void AWarEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	UWarWidgetBase* HealthWidget = Cast<UWarWidgetBase>(EnemyHealthBarWidgetComponent->GetUserWidgetObject());
+
+	if (HealthWidget)
+	{
+		HealthWidget->InitEnemyCreatedWidget(this);
+	}
+	//InitEnemyStartUpData();
 }
 
 void AWarEnemyCharacter::PossessedBy(AController* NewController)
